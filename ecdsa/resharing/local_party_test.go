@@ -56,7 +56,7 @@ func TestE2EConcurrent(t *testing.T) {
 	if err != nil {
 		common.Logger.Info("No test fixtures were found, so the safe primes will be generated from scratch. This may take a while...")
 	}
-	newPIDs := tss.GenerateTestPartyIDs(testParticipants)
+	newPIDs := test.GenerateTestPartyIDs(testParticipants)
 	newP2PCtx := tss.NewPeerContext(newPIDs)
 	newPCount := len(newPIDs)
 

@@ -52,7 +52,7 @@ func TestE2EConcurrent(t *testing.T) {
 	oldP2PCtx := tss.NewPeerContext(oldPIDs)
 
 	// init the new parties; re-use the fixture pre-params for speed
-	newPIDs := tss.GenerateTestPartyIDs(testParticipants)
+	newPIDs := test.GenerateTestPartyIDs(testParticipants)
 	newP2PCtx := tss.NewPeerContext(newPIDs)
 	newPCount := len(newPIDs)
 

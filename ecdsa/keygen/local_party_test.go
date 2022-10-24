@@ -43,7 +43,7 @@ func setUp(level string) {
 func TestStartRound1Paillier(t *testing.T) {
 	setUp("debug")
 
-	pIDs := tss.GenerateTestPartyIDs(1)
+	pIDs := test.GenerateTestPartyIDs(1)
 	p2pCtx := tss.NewPeerContext(pIDs)
 	threshold := 1
 	params := tss.NewParameters(tss.EC(), p2pCtx, pIDs[0], len(pIDs), threshold)
@@ -51,7 +51,7 @@ func TestStartRound1Paillier(t *testing.T) {
 	fixtures, pIDs, err := LoadKeygenTestFixtures(testParticipants)
 	if err != nil {
 		common.Logger.Info("No test fixtures were found, so the safe primes will be generated from scratch. This may take a while...")
-		pIDs = tss.GenerateTestPartyIDs(testParticipants)
+		pIDs = test.GenerateTestPartyIDs(testParticipants)
 	}
 
 	var lp *LocalParty
@@ -83,7 +83,7 @@ func TestStartRound1Paillier(t *testing.T) {
 func TestFinishAndSaveH1H2(t *testing.T) {
 	setUp("debug")
 
-	pIDs := tss.GenerateTestPartyIDs(1)
+	pIDs := test.GenerateTestPartyIDs(1)
 	p2pCtx := tss.NewPeerContext(pIDs)
 	threshold := 1
 	params := tss.NewParameters(tss.EC(), p2pCtx, pIDs[0], len(pIDs), threshold)
@@ -91,7 +91,7 @@ func TestFinishAndSaveH1H2(t *testing.T) {
 	fixtures, pIDs, err := LoadKeygenTestFixtures(testParticipants)
 	if err != nil {
 		common.Logger.Info("No test fixtures were found, so the safe primes will be generated from scratch. This may take a while...")
-		pIDs = tss.GenerateTestPartyIDs(testParticipants)
+		pIDs = test.GenerateTestPartyIDs(testParticipants)
 	}
 
 	var lp *LocalParty
@@ -131,14 +131,14 @@ func TestFinishAndSaveH1H2(t *testing.T) {
 func TestBadMessageCulprits(t *testing.T) {
 	setUp("debug")
 
-	pIDs := tss.GenerateTestPartyIDs(2)
+	pIDs := test.GenerateTestPartyIDs(2)
 	p2pCtx := tss.NewPeerContext(pIDs)
 	params := tss.NewParameters(tss.S256(), p2pCtx, pIDs[0], len(pIDs), 1)
 
 	fixtures, pIDs, err := LoadKeygenTestFixtures(testParticipants)
 	if err != nil {
 		common.Logger.Info("No test fixtures were found, so the safe primes will be generated from scratch. This may take a while...")
-		pIDs = tss.GenerateTestPartyIDs(testParticipants)
+		pIDs = test.GenerateTestPartyIDs(testParticipants)
 	}
 
 	var lp *LocalParty
@@ -175,7 +175,7 @@ func TestE2EConcurrentAndSaveFixtures(t *testing.T) {
 	fixtures, pIDs, err := LoadKeygenTestFixtures(testParticipants)
 	if err != nil {
 		common.Logger.Info("No test fixtures were found, so the safe primes will be generated from scratch. This may take a while...")
-		pIDs = tss.GenerateTestPartyIDs(testParticipants)
+		pIDs = test.GenerateTestPartyIDs(testParticipants)
 	}
 
 	p2pCtx := tss.NewPeerContext(pIDs)

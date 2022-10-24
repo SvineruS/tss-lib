@@ -7,6 +7,10 @@
 package test
 
 import (
+	"fmt"
+	"math/big"
+
+	"github.com/bnb-chain/tss-lib/common"
 	"github.com/bnb-chain/tss-lib/tss"
 )
 
@@ -28,4 +32,28 @@ func SharedPartyUpdater(party tss.Party, msg tss.Message, errCh chan<- *tss.Erro
 	if _, err := party.Update(pMsg); err != nil {
 		errCh <- err
 	}
+}
+
+// GenerateTestPartyIDs generates a list of mock PartyIDs for tests
+func GenerateTestPartyIDs(count int, startAt ...int) tss.SortedPartyIDs {
+	ids := make(tss.UnSortedPartyIDs, 0, count)
+	key := common.MustGetRandomInt(256)
+	frm := 0
+	i := 0 // default `i`
+	if len(startAt) > 0 {
+		frm = startAt[0]
+		i = startAt[0]
+	}
+	for ; i < count+frm; i++ {
+		ids = append(ids, &tss.PartyID{
+			MessageWrapper_PartyID: &tss.MessageWrapper_PartyID{
+				Id:      fmt.Sprintf("%d", i+1),
+				Moniker: fmt.Sprintf("P[%d]", i+1),
+				Key:     new(big.Int).Sub(key, big.NewInt(int64(count)-int64(i))).Bytes(),
+			},
+			Index: i,
+			// this key makes tests more deterministic
+		})
+	}
+	return tss.SortPartyIDs(ids, startAt...)
 }
